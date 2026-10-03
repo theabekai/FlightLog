@@ -2,4 +2,40 @@ body {
     font-family: Arial, sans-serif;
     background-color: #eef6fb;
     color: #172b3a;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #172b3a;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 48px;
+    margin: 0;
+}
+
+header p {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.entry {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+}
+
+.entry h2 {
+    margin-top: 0;
 }
