@@ -1,28 +1,200 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>FlightLog</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightLog | Aviation Learning Journal</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-<h1>FlightLog</h1>
-<p>My personal aviation learning journal ✈️</p>
+    <div class="hero">
+        <p class="eyebrow">AVIATION LEARNING JOURNAL</p>
+        <h1>FlightLog ✈️</h1>
+        <p class="subtitle">Explore. Learn. Record your journey through aviation.</p>
+        <a href="#entries" class="hero-button">Start Exploring ↓</a>
+    </div>
 </header>
+
+<nav>
+    <a href="#entries">Journal</a>
+    <a href="#aircraft">Aircraft</a>
+    <a href="#goals">Goals</a>
+    <a href="#gallery">Gallery</a>
+</nav>
 
 <main>
 
-<div class="entry">
-<h2>My First Entry</h2>
-<p>
-Welcome to FlightLog. This is where I document what I learn
-about aviation, flight, and the science behind it.
-</p>
-</div>
+<section class="dashboard">
+    <div class="stat">
+        <strong id="entryCount">0</strong>
+        <span>Entries</span>
+    </div>
+
+    <div class="stat">
+        <strong id="goalCount">0</strong>
+        <span>Goals</span>
+    </div>
+
+    <div class="stat">
+        <strong>∞</strong>
+        <span>Questions</span>
+    </div>
+</section>
+
+<section id="entries">
+    <div class="section-title">
+        <p class="eyebrow">MY JOURNEY</p>
+        <h2>Learning Journal</h2>
+        <p>Record the aviation topics you explore and the questions they make you ask.</p>
+    </div>
+
+    <div class="entry-form">
+        <input id="entryTitle" type="text" placeholder="Entry title — e.g. How does lift work?">
+        <textarea id="entryText" placeholder="What did you learn?"></textarea>
+        <button onclick="addEntry()">+ Add Entry</button>
+    </div>
+
+    <div id="entriesList"></div>
+</section>
+
+<section id="aircraft">
+    <div class="section-title">
+        <p class="eyebrow">AIRCRAFT</p>
+        <h2>Aircraft I'm Exploring</h2>
+    </div>
+
+    <div class="cards">
+
+        <article class="card">
+            <div class="aircraft-icon">✈️</div>
+            <h3>Airbus A350</h3>
+            <p>Long-range wide-body aircraft designed for efficiency and passenger comfort.</p>
+            <span class="tag">COMMERCIAL</span>
+        </article>
+
+        <article class="card">
+            <div class="aircraft-icon">🛩️</div>
+            <h3>F-22 Raptor</h3>
+            <p>A fifth-generation fighter known for stealth, agility and air-superiority capabilities.</p>
+            <span class="tag">MILITARY</span>
+        </article>
+
+        <article class="card">
+            <div class="aircraft-icon">🚀</div>
+            <h3>Concorde</h3>
+            <p>The famous supersonic passenger aircraft that crossed the Atlantic in hours.</p>
+            <span class="tag">SUPERSONIC</span>
+        </article>
+
+    </div>
+</section>
+
+<section id="goals">
+    <div class="section-title">
+        <p class="eyebrow">MISSION CONTROL</p>
+        <h2>My Aviation Goals</h2>
+    </div>
+
+    <div class="goal-box">
+        <label>
+            <input type="checkbox" onchange="updateGoals()">
+            Understand how lift and drag work
+        </label>
+
+        <label>
+            <input type="checkbox" onchange="updateGoals()">
+            Research the science of aerodynamics
+        </label>
+
+        <label>
+            <input type="checkbox" onchange="updateGoals()">
+            Learn how pilots navigate
+        </label>
+
+        <label>
+            <input type="checkbox" onchange="updateGoals()">
+            Research a career in aerospace engineering
+        </label>
+    </div>
+</section>
+
+<section id="gallery">
+    <div class="section-title">
+        <p class="eyebrow">VISUAL LOG</p>
+        <h2>Aviation Gallery</h2>
+        <p>Add your own aviation images here as your project grows.</p>
+    </div>
+
+    <div class="gallery">
+        <div class="gallery-placeholder">🛫<span>Future Flight</span></div>
+        <div class="gallery-placeholder">🌎<span>Flight Around the World</span></div>
+        <div class="gallery-placeholder">🔬<span>Aviation Science</span></div>
+    </div>
+</section>
 
 </main>
+
+<footer>
+    <p>FlightLog © 2026 — Built to learn aviation, one question at a time.</p>
+</footer>
+
+<script>
+let entries = JSON.parse(localStorage.getItem("flightlogEntries")) || [];
+
+function displayEntries() {
+    const list = document.getElementById("entriesList");
+    list.innerHTML = "";
+
+    entries.forEach((entry) => {
+        const card = document.createElement("article");
+        card.className = "journal-card";
+
+        card.innerHTML = `
+            <span class="date">${entry.date}</span>
+            <h3>${entry.title}</h3>
+            <p>${entry.text}</p>
+        `;
+
+        list.appendChild(card);
+    });
+
+    document.getElementById("entryCount").textContent = entries.length;
+}
+
+function addEntry() {
+    const title = document.getElementById("entryTitle").value.trim();
+    const text = document.getElementById("entryText").value.trim();
+
+    if (!title || !text) {
+        alert("Please enter a title and something you learned!");
+        return;
+    }
+
+    entries.push({
+        title: title,
+        text: text,
+        date: new Date().toLocaleDateString()
+    });
+
+    localStorage.setItem("flightlogEntries", JSON.stringify(entries));
+
+    document.getElementById("entryTitle").value = "";
+    document.getElementById("entryText").value = "";
+
+    displayEntries();
+}
+
+function updateGoals() {
+    const checked = document.querySelectorAll("#goals input[type='checkbox']:checked").length;
+    document.getElementById("goalCount").textContent = checked;
+}
+
+displayEntries();
+updateGoals();
+</script>
 
 </body>
 </html>
