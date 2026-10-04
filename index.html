@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>FlightLog | Aviation Learning Journal</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,8 +15,13 @@
 <header>
     <div class="hero">
         <p class="eyebrow">AVIATION LEARNING JOURNAL</p>
+
         <h1>FlightLog ✈️</h1>
-        <p class="subtitle">Explore. Learn. Record your journey through aviation.</p>
+
+        <p class="subtitle">
+            Explore. Learn. Record your journey through aviation.
+        </p>
+
         <a href="#entries" class="hero-button">Start Exploring ↓</a>
     </div>
 </header>
@@ -28,6 +36,7 @@
 <main>
 
 <section class="dashboard">
+
     <div class="stat">
         <strong id="entryCount">0</strong>
         <span>Entries</span>
@@ -35,70 +44,135 @@
 
     <div class="stat">
         <strong id="goalCount">0</strong>
-        <span>Goals</span>
+        <span>Goals Completed</span>
     </div>
 
     <div class="stat">
         <strong>∞</strong>
         <span>Questions</span>
     </div>
+
 </section>
+
 
 <section id="entries">
+
     <div class="section-title">
+
         <p class="eyebrow">MY JOURNEY</p>
+
         <h2>Learning Journal</h2>
-        <p>Record the aviation topics you explore and the questions they make you ask.</p>
+
+        <p>
+            Record the aviation topics you explore and the questions they make you ask.
+        </p>
+
     </div>
+
 
     <div class="entry-form">
-        <input id="entryTitle" type="text" placeholder="Entry title — e.g. How does lift work?">
-        <textarea id="entryText" placeholder="What did you learn?"></textarea>
+
+        <input
+            id="entryTitle"
+            type="text"
+            placeholder="Entry title — e.g. How does lift work?"
+        >
+
+        <textarea
+            id="entryText"
+            placeholder="What did you learn?"
+        ></textarea>
+
         <button onclick="addEntry()">+ Add Entry</button>
+
     </div>
+
 
     <div id="entriesList"></div>
+
 </section>
 
+
+
 <section id="aircraft">
+
     <div class="section-title">
+
         <p class="eyebrow">AIRCRAFT</p>
+
         <h2>Aircraft I'm Exploring</h2>
+
     </div>
+
 
     <div class="cards">
 
         <article class="card">
+
             <div class="aircraft-icon">✈️</div>
+
             <h3>Airbus A350</h3>
-            <p>Long-range wide-body aircraft designed for efficiency and passenger comfort.</p>
+
+            <p>
+                Long-range wide-body aircraft designed for efficiency
+                and passenger comfort.
+            </p>
+
             <span class="tag">COMMERCIAL</span>
+
         </article>
 
+
         <article class="card">
+
             <div class="aircraft-icon">🛩️</div>
+
             <h3>F-22 Raptor</h3>
-            <p>A fifth-generation fighter known for stealth, agility and air-superiority capabilities.</p>
+
+            <p>
+                A fifth-generation fighter known for stealth,
+                agility and air-superiority capabilities.
+            </p>
+
             <span class="tag">MILITARY</span>
+
         </article>
 
+
         <article class="card">
+
             <div class="aircraft-icon">🚀</div>
+
             <h3>Concorde</h3>
-            <p>The famous supersonic passenger aircraft that crossed the Atlantic in hours.</p>
+
+            <p>
+                The famous supersonic passenger aircraft that
+                crossed the Atlantic in hours.
+            </p>
+
             <span class="tag">SUPERSONIC</span>
+
         </article>
 
     </div>
+
 </section>
 
+
+
 <section id="goals">
+
     <div class="section-title">
+
         <p class="eyebrow">MISSION CONTROL</p>
+
         <h2>My Aviation Goals</h2>
+
     </div>
 
+
     <div class="goal-box">
+
         <label>
             <input type="checkbox" onchange="updateGoals()">
             Understand how lift and drag work
@@ -118,83 +192,209 @@
             <input type="checkbox" onchange="updateGoals()">
             Research a career in aerospace engineering
         </label>
+
     </div>
+
 </section>
 
+
+
 <section id="gallery">
+
     <div class="section-title">
+
         <p class="eyebrow">VISUAL LOG</p>
+
         <h2>Aviation Gallery</h2>
-        <p>Add your own aviation images here as your project grows.</p>
+
+        <p>
+            Add your own aviation images to your learning journal.
+        </p>
+
     </div>
 
-    <div class="gallery">
-        <div class="gallery-placeholder">🛫<span>Future Flight</span></div>
-        <div class="gallery-placeholder">🌎<span>Flight Around the World</span></div>
-        <div class="gallery-placeholder">🔬<span>Aviation Science</span></div>
+
+    <div class="gallery-upload">
+
+        <input
+            type="file"
+            id="imageInput"
+            accept="image/*"
+        >
+
+        <div id="imagePreview" class="gallery"></div>
+
     </div>
+
 </section>
 
 </main>
 
+
+
 <footer>
-    <p>FlightLog © 2026 — Built to learn aviation, one question at a time.</p>
+
+    <p>
+        FlightLog © 2026 — Built to learn aviation, one question at a time.
+    </p>
+
 </footer>
 
+
+
 <script>
-let entries = JSON.parse(localStorage.getItem("flightlogEntries")) || [];
+
+let entries =
+    JSON.parse(localStorage.getItem("flightlogEntries")) || [];
+
+
 
 function displayEntries() {
-    const list = document.getElementById("entriesList");
+
+    const list =
+        document.getElementById("entriesList");
+
     list.innerHTML = "";
 
+
     entries.forEach((entry) => {
-        const card = document.createElement("article");
+
+        const card =
+            document.createElement("article");
+
         card.className = "journal-card";
+
 
         card.innerHTML = `
             <span class="date">${entry.date}</span>
+
             <h3>${entry.title}</h3>
+
             <p>${entry.text}</p>
         `;
 
+
         list.appendChild(card);
+
     });
 
-    document.getElementById("entryCount").textContent = entries.length;
+
+    document.getElementById("entryCount").textContent =
+        entries.length;
+
 }
+
+
 
 function addEntry() {
-    const title = document.getElementById("entryTitle").value.trim();
-    const text = document.getElementById("entryText").value.trim();
+
+    const title =
+        document.getElementById("entryTitle").value.trim();
+
+    const text =
+        document.getElementById("entryText").value.trim();
+
 
     if (!title || !text) {
+
         alert("Please enter a title and something you learned!");
+
         return;
+
     }
 
+
     entries.push({
+
         title: title,
+
         text: text,
+
         date: new Date().toLocaleDateString()
+
     });
 
-    localStorage.setItem("flightlogEntries", JSON.stringify(entries));
+
+    localStorage.setItem(
+        "flightlogEntries",
+        JSON.stringify(entries)
+    );
+
 
     document.getElementById("entryTitle").value = "";
+
     document.getElementById("entryText").value = "";
 
+
     displayEntries();
+
 }
+
+
 
 function updateGoals() {
-    const checked = document.querySelectorAll("#goals input[type='checkbox']:checked").length;
-    document.getElementById("goalCount").textContent = checked;
+
+    const checked =
+        document.querySelectorAll(
+            "#goals input[type='checkbox']:checked"
+        ).length;
+
+
+    document.getElementById("goalCount").textContent =
+        checked;
+
 }
 
+
+
+const imageInput =
+    document.getElementById("imageInput");
+
+const imagePreview =
+    document.getElementById("imagePreview");
+
+
+
+imageInput.addEventListener("change", function() {
+
+    const file = imageInput.files[0];
+
+
+    if (!file) {
+
+        return;
+
+    }
+
+
+    const reader = new FileReader();
+
+
+    reader.onload = function(event) {
+
+        imagePreview.innerHTML = `
+            <img
+                src="${event.target.result}"
+                alt="My aviation image"
+            >
+        `;
+
+    };
+
+
+    reader.readAsDataURL(file);
+
+});
+
+
+
 displayEntries();
+
 updateGoals();
+
 </script>
 
+
 </body>
+
 </html>
