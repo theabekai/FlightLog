@@ -14,6 +14,7 @@
 
 <header>
     <div class="hero">
+
         <p class="eyebrow">AVIATION LEARNING JOURNAL</p>
 
         <h1>FlightLog ✈️</h1>
@@ -22,9 +23,13 @@
             Explore. Learn. Record your journey through aviation.
         </p>
 
-        <a href="#entries" class="hero-button">Start Exploring ↓</a>
+        <a href="#entries" class="hero-button">
+            Start Exploring ↓
+        </a>
+
     </div>
 </header>
+
 
 <nav>
     <a href="#entries">Journal</a>
@@ -33,7 +38,9 @@
     <a href="#gallery">Gallery</a>
 </nav>
 
+
 <main>
+
 
 <section class="dashboard">
 
@@ -55,6 +62,7 @@
 </section>
 
 
+
 <section id="entries">
 
     <div class="section-title">
@@ -64,7 +72,8 @@
         <h2>Learning Journal</h2>
 
         <p>
-            Record the aviation topics you explore and the questions they make you ask.
+            Record the aviation topics you explore and the questions
+            they make you ask.
         </p>
 
     </div>
@@ -83,7 +92,9 @@
             placeholder="What did you learn?"
         ></textarea>
 
-        <button onclick="addEntry()">+ Add Entry</button>
+        <button onclick="addEntry()">
+            + Add Entry
+        </button>
 
     </div>
 
@@ -107,6 +118,7 @@
 
     <div class="cards">
 
+
         <article class="card">
 
             <div class="aircraft-icon">✈️</div>
@@ -114,13 +126,14 @@
             <h3>Airbus A350</h3>
 
             <p>
-                Long-range wide-body aircraft designed for efficiency
-                and passenger comfort.
+                Long-range wide-body aircraft designed for
+                efficiency and passenger comfort.
             </p>
 
             <span class="tag">COMMERCIAL</span>
 
         </article>
+
 
 
         <article class="card">
@@ -139,6 +152,7 @@
         </article>
 
 
+
         <article class="card">
 
             <div class="aircraft-icon">🚀</div>
@@ -153,6 +167,7 @@
             <span class="tag">SUPERSONIC</span>
 
         </article>
+
 
     </div>
 
@@ -173,25 +188,57 @@
 
     <div class="goal-box">
 
+
         <label>
-            <input type="checkbox" onchange="updateGoals()">
+
+            <input
+                type="checkbox"
+                onchange="updateGoals()"
+            >
+
             Understand how lift and drag work
+
         </label>
 
+
+
         <label>
-            <input type="checkbox" onchange="updateGoals()">
+
+            <input
+                type="checkbox"
+                onchange="updateGoals()"
+            >
+
             Research the science of aerodynamics
+
         </label>
 
+
+
         <label>
-            <input type="checkbox" onchange="updateGoals()">
+
+            <input
+                type="checkbox"
+                onchange="updateGoals()"
+            >
+
             Learn how pilots navigate
+
         </label>
 
+
+
         <label>
-            <input type="checkbox" onchange="updateGoals()">
+
+            <input
+                type="checkbox"
+                onchange="updateGoals()"
+            >
+
             Research a career in aerospace engineering
+
         </label>
+
 
     </div>
 
@@ -208,7 +255,7 @@
         <h2>Aviation Gallery</h2>
 
         <p>
-            Add your own aviation images to your learning journal.
+            Add aviation images to your personal learning journal.
         </p>
 
     </div>
@@ -222,11 +269,27 @@
             accept="image/*"
         >
 
-        <div id="imagePreview" class="gallery"></div>
+        <input
+            type="text"
+            id="imageCaption"
+            placeholder="Write a caption for your image..."
+        >
+
+        <button onclick="addImage()">
+            + Add Image
+        </button>
 
     </div>
 
+
+    <div
+        id="galleryList"
+        class="gallery"
+    ></div>
+
+
 </section>
+
 
 </main>
 
@@ -235,7 +298,8 @@
 <footer>
 
     <p>
-        FlightLog © 2026 — Built to learn aviation, one question at a time.
+        FlightLog © 2026 — Built to learn aviation,
+        one question at a time.
     </p>
 
 </footer>
@@ -244,8 +308,16 @@
 
 <script>
 
+
+/* =========================
+   JOURNAL
+========================= */
+
+
 let entries =
-    JSON.parse(localStorage.getItem("flightlogEntries")) || [];
+    JSON.parse(
+        localStorage.getItem("flightlogEntries")
+    ) || [];
 
 
 
@@ -257,7 +329,7 @@ function displayEntries() {
     list.innerHTML = "";
 
 
-    entries.forEach((entry) => {
+    entries.forEach((entry, index) => {
 
         const card =
             document.createElement("article");
@@ -266,11 +338,27 @@ function displayEntries() {
 
 
         card.innerHTML = `
-            <span class="date">${entry.date}</span>
 
-            <h3>${entry.title}</h3>
+            <span class="date">
+                ${entry.date}
+            </span>
 
-            <p>${entry.text}</p>
+            <h3>
+                ${entry.title}
+            </h3>
+
+            <p>
+                ${entry.text}
+            </p>
+
+            <button onclick="editEntry(${index})">
+                Edit
+            </button>
+
+            <button onclick="deleteEntry(${index})">
+                Delete
+            </button>
+
         `;
 
 
@@ -279,8 +367,9 @@ function displayEntries() {
     });
 
 
-    document.getElementById("entryCount").textContent =
-        entries.length;
+    document.getElementById(
+        "entryCount"
+    ).textContent = entries.length;
 
 }
 
@@ -289,15 +378,24 @@ function displayEntries() {
 function addEntry() {
 
     const title =
-        document.getElementById("entryTitle").value.trim();
+        document
+        .getElementById("entryTitle")
+        .value
+        .trim();
+
 
     const text =
-        document.getElementById("entryText").value.trim();
+        document
+        .getElementById("entryText")
+        .value
+        .trim();
 
 
     if (!title || !text) {
 
-        alert("Please enter a title and something you learned!");
+        alert(
+            "Please enter a title and something you learned!"
+        );
 
         return;
 
@@ -310,7 +408,9 @@ function addEntry() {
 
         text: text,
 
-        date: new Date().toLocaleDateString()
+        date:
+            new Date()
+            .toLocaleDateString()
 
     });
 
@@ -321,15 +421,100 @@ function addEntry() {
     );
 
 
-    document.getElementById("entryTitle").value = "";
+    document.getElementById(
+        "entryTitle"
+    ).value = "";
 
-    document.getElementById("entryText").value = "";
+
+    document.getElementById(
+        "entryText"
+    ).value = "";
 
 
     displayEntries();
 
 }
 
+
+
+function deleteEntry(index) {
+
+    const confirmed =
+        confirm(
+            "Are you sure you want to delete this entry?"
+        );
+
+
+    if (!confirmed) {
+
+        return;
+
+    }
+
+
+    entries.splice(index, 1);
+
+
+    localStorage.setItem(
+        "flightlogEntries",
+        JSON.stringify(entries)
+    );
+
+
+    displayEntries();
+
+}
+
+
+
+function editEntry(index) {
+
+    const newTitle =
+        prompt(
+            "Edit your entry title:",
+            entries[index].title
+        );
+
+
+    const newText =
+        prompt(
+            "Edit what you learned:",
+            entries[index].text
+        );
+
+
+    if (
+        newTitle !== null &&
+        newText !== null &&
+        newTitle.trim() !== "" &&
+        newText.trim() !== ""
+    ) {
+
+        entries[index].title =
+            newTitle.trim();
+
+
+        entries[index].text =
+            newText.trim();
+
+
+        localStorage.setItem(
+            "flightlogEntries",
+            JSON.stringify(entries)
+        );
+
+
+        displayEntries();
+
+    }
+
+}
+
+
+
+/* =========================
+   GOALS
+========================= */
 
 
 function updateGoals() {
@@ -340,57 +525,172 @@ function updateGoals() {
         ).length;
 
 
-    document.getElementById("goalCount").textContent =
-        checked;
+    document.getElementById(
+        "goalCount"
+    ).textContent = checked;
 
 }
 
 
 
-const imageInput =
-    document.getElementById("imageInput");
-
-const imagePreview =
-    document.getElementById("imagePreview");
+/* =========================
+   IMAGE GALLERY
+========================= */
 
 
+let galleryImages =
+    JSON.parse(
+        localStorage.getItem("flightlogImages")
+    ) || [];
 
-imageInput.addEventListener("change", function() {
 
-    const file = imageInput.files[0];
+
+function displayImages() {
+
+    const gallery =
+        document.getElementById("galleryList");
+
+    gallery.innerHTML = "";
+
+
+    galleryImages.forEach(
+        (image, index) => {
+
+            const card =
+                document.createElement("div");
+
+            card.className =
+                "gallery-item";
+
+
+            card.innerHTML = `
+
+                <img
+                    src="${image.src}"
+                    alt="${image.caption}"
+                >
+
+                <p>
+                    ${image.caption}
+                </p>
+
+                <button
+                    onclick="deleteImage(${index})"
+                >
+                    Delete
+                </button>
+
+            `;
+
+
+            gallery.appendChild(card);
+
+        }
+    );
+
+}
+
+
+
+function addImage() {
+
+    const input =
+        document.getElementById(
+            "imageInput"
+        );
+
+
+    const caption =
+        document.getElementById(
+            "imageCaption"
+        ).value.trim();
+
+
+    const file =
+        input.files[0];
 
 
     if (!file) {
+
+        alert(
+            "Please choose an image first!"
+        );
 
         return;
 
     }
 
 
-    const reader = new FileReader();
+    const reader =
+        new FileReader();
 
 
     reader.onload = function(event) {
 
-        imagePreview.innerHTML = `
-            <img
-                src="${event.target.result}"
-                alt="My aviation image"
-            >
-        `;
+        galleryImages.push({
+
+            src: event.target.result,
+
+            caption:
+                caption ||
+                "My aviation image"
+
+        });
+
+
+        localStorage.setItem(
+            "flightlogImages",
+            JSON.stringify(galleryImages)
+        );
+
+
+        input.value = "";
+
+
+        document.getElementById(
+            "imageCaption"
+        ).value = "";
+
+
+        displayImages();
 
     };
 
 
     reader.readAsDataURL(file);
 
-});
+}
 
+
+
+function deleteImage(index) {
+
+    galleryImages.splice(index, 1);
+
+
+    localStorage.setItem(
+        "flightlogImages",
+        JSON.stringify(galleryImages)
+    );
+
+
+    displayImages();
+
+}
+
+
+
+/* =========================
+   START
+========================= */
 
 
 displayEntries();
 
 updateGoals();
+
+displayImages();
+
 
 </script>
 
